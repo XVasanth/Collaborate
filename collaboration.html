@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Industry-Academia Partnership Proposal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .presentation-container {
+            width: 95%;
+            max-width: 1200px;
+            height: 90vh;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .slide {
+            flex: 1;
+            padding: 40px 60px;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .slide h2 {
+            color: #34495e;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            padding-left: 20px;
+        }
+
+        .slide h3 {
+            color: #2980b9;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .slide ul {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .publication-item {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .publication-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .publication-journal {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #34495e;
+            color: white;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover {
+            background: #2980b9;
+        }
+
+        .nav-button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slide-counter {
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 6px;
+            background: #7f8c8d;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3498db;
+            transition: width 0.3s;
+        }
+
+        .title-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title-slide h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+
+        .presenter-info {
+            background: #ecf0f1;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .phase-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+
+        .phase-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .contact-info {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>Strategic Industry-Academia Partnership</h1>
+            <p class="subtitle">Advanced Vibration Control & AI-Driven Predictive Maintenance Solutions</p>
+            <div class="presenter-info">
+                <h3>Dr. Ajay Vasanth</h3>
+                <p>Associate Professor, Department of Mechanical Engineering<br>
+                PSG Institute of Technology and Applied Research</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: About Dr. Ajay Vasanth -->
+        <div class="slide">
+            <h1>Dr. Ajay Vasanth - Research Leadership</h1>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">224</div>
+                    <div class="stat-label">Citations</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Publications</div>
+                </div>
+            </div>
+            <h3>Core Research Domains:</h3>
+            <ul>
+                <li><strong>Advanced Vibration Control Systems</strong> - Specialized in magnetorheological (MR) damping technologies</li>
+                <li><strong>Smart Materials Engineering</strong> - Pioneer in adaptive damping systems using intelligent materials</li>
+                <li><strong>AI/ML for Industrial Applications</strong> - Expert in predictive maintenance and fault diagnosis</li>
+                <li><strong>Sustainable Manufacturing</strong> - Focus on energy-efficient solutions</li>
+                <li><strong>Industry 4.0 Integration</strong> - Research in IoT-enabled monitoring systems</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Key Publications -->
+        <div class="slide">
+            <h1>Research Excellence & Publications</h1>
+            <h3>Key Publications Directly Relevant to Compressor Applications:</h3>
+            
+            <div class="publication-item">
+                <div class="publication-title">Evaluating electromagnetic effects on smart silicone magneto-rheological damper in hardened steel turning operations</div>
+                <div class="publication-journal">Multiscale and Multidisciplinary Modeling, Experiments and Design (2024)</div>
+                <p>• Breakthrough research in adaptive damping systems for precision machinery<br>
+                • Novel electromagnetic optimization in smart damping materials</p>
+            </div>
+
+            <div class="publication-item">
+                <div class="publication-title">Characterization of Enhanced Magnetorheological Fluid Damper for Sustainable Hard Turning</div>
+                <div class="publication-journal">SAE Technical Paper Series (2024)</div>
+                <p>• Advanced stabilizer integration using activated carbon and titanium<br>
+                • Sustainable manufacturing solutions for energy-efficient operations</p>
+            </div>
+
+            <div class="publication-item">
+                <div class="publication-title">Magnetorheological foam damper for vibration control during boring process</div>
+                <div class="publication-journal">Multiscale and Multidisciplinary Modeling, Experiments and Design (2023)</div>
+                <p>• Innovative foam-based damping technology eliminating sealing problems<br>
+                • Lower maintenance requirements with superior vibration suppression</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Strategic Value Proposition -->
+        <div class="slide">
+            <h1>Strategic Value Proposition</h1>
+            <div class="highlight-box">
+                <h3>Technology Transfer Opportunities for ELGi</h3>
+            </div>
+            
+            <h3>Next-Generation Compressor Vibration Management:</h3>
+            <ul>
+                <li>Adaptive vibration isolation systems responding to operational conditions</li>
+                <li>Significant noise reduction for improved workplace environments</li>
+                <li>Enhanced equipment longevity through intelligent damping control</li>
+            </ul>
+
+            <h3>AI-Powered Condition Monitoring Platform:</h3>
+            <ul>
+                <li>Real-time fault detection for compressor-specific failure modes</li>
+                <li>Early warning systems for bearing wear, rotor imbalance, valve issues</li>
+                <li>IoT integration for remote monitoring and maintenance scheduling</li>
+            </ul>
+
+            <h3>Sustainable Operations Enhancement:</h3>
+            <ul>
+                <li>Energy recovery systems from operational vibrations</li>
+                <li>Optimized damping strategies for reduced energy consumption</li>
+                <li>Environmental impact assessment and mitigation strategies</li>
+            </ul>
+        </div>
+
+        <!-- Slide 5: Collaborative Framework -->
+        <div class="slide">
+            <h1>Collaborative Research Framework</h1>
+            <div class="phase-container">
+                <div class="phase-box">
+                    <h3>Phase 1</h3>
+                    <h4>Foundation & Assessment</h4>
+                    <p>• Identify vibration challenges<br>
+                    • Baseline performance assessment<br>
+                    • Develop MR damping prototypes</p>
+                </div>
+                <div class="phase-box">
+                    <h3>Phase 2</h3>
+                    <h4>Development & Testing</h4>
+                    <p>• AI predictive maintenance algorithms<br>
+                    • Field testing smart damping solutions<br>
+                    • Performance optimization</p>
+                </div>
+                <div class="phase-box">
+                    <h3>Phase 3</h3>
+                    <h4>Technology Transfer</h4>
+                    <p>• Joint IP development<br>
+                    • Technology licensing strategies<br>
+                    • Market validation</p>
+                </div>
+            </div>
+
+            <h3>Research Deliverables:</h3>
+            <ul>
+                <li><strong>Technical:</strong> Custom MR damping systems, AI monitoring software, validation reports</li>
+                <li><strong>Knowledge Transfer:</strong> Joint publications, patent applications, trained workforce</li>
+                <li><strong>Commercial Impact:</strong> Technology ready for integration, competitive advantage, new revenue streams</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Research Infrastructure -->
+        <div class="slide">
+            <h1>Research Excellence & Recognition</h1>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">224</div>
+                    <div class="stat-label">International Citations</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">Premier</div>
+                    <div class="stat-label">Journal Publications</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">Proven</div>
+                    <div class="stat-label">Technology Transfer</div>
+                </div>
+            </div>
+
+            <h3>Technology Innovation:</h3>
+            <ul>
+                <li>Pioneer in foam-based MR damping systems eliminating sealing challenges</li>
+                <li>Developer of enhanced MR fluids with improved temperature stability</li>
+                <li>Creator of AI-driven predictive maintenance frameworks for rotating machinery</li>
+            </ul>
+
+            <h3>Sustainability Focus:</h3>
+            <ul>
+                <li>Research emphasis on environmentally conscious manufacturing solutions</li>
+                <li>Energy-efficient design methodologies for industrial equipment</li>
+                <li>Life cycle assessment expertise for sustainable product development</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Partnership Vision -->
+        <div class="slide">
+            <h1>Partnership Vision</h1>
+            <div class="highlight-box">
+                <h3>Leveraging Academic Excellence for Industrial Innovation</h3>
+                <p>Synergy between ELGi's industry leadership and PSG iTech's research excellence</p>
+            </div>
+
+            <h3>Research Impact Potential:</h3>
+            <ul>
+                <li><strong>Industry-First Solutions:</strong> Development of adaptive damping compressor systems</li>
+                <li><strong>AI-Driven Innovation:</strong> Creation of predictive maintenance platforms</li>
+                <li><strong>Sustainability Leadership:</strong> Establishment of manufacturing benchmarks for compressed air industry</li>
+            </ul>
+
+            <h3>Competitive Advantages:</h3>
+            <ul>
+                <li>Technology ready for integration into ELGi's product lines</li>
+                <li>Competitive differentiation through smart damping capabilities</li>
+                <li>New revenue streams from advanced monitoring services</li>
+                <li>Market leadership in smart industrial equipment</li>
+            </ul>
+
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h3>"Transforming Industrial Challenges into Innovation Opportunities"</h3>
+            </div>
+        </div>
+
+        <!-- Slide 8: Contact -->
+        <div class="slide">
+            <h1>Let's Collaborate</h1>
+            <div class="contact-info">
+                <h2>Dr. Ajay Vasanth</h2>
+                <p style="font-size: 1.2rem; margin: 20px 0;">Associate Professor & Research Leader</p>
+                <p><strong>Email:</strong> ajay.vasanth@psgitech.ac.in</p>
+                <p><strong>Institution:</strong> PSG Institute of Technology and Applied Research</p>
+                <p><strong>Department:</strong> Mechanical Engineering</p>
+                <p><strong>Address:</strong> Avinashi Road, Neelambur, Coimbatore - 641062, Tamil Nadu, India</p>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 40px;">
+                <h3>Ready to discuss how this collaboration can address ELGi's strategic technology priorities</h3>
+                <p>Creating measurable value through breakthrough innovations in compressed air technology</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+            <div class="slide-indicator">
+                <span class="slide-counter">Slide <span id="currentSlide">1</span> of <span id="totalSlides">8</span></span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
+            <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            document.getElementById('progressBar').style.width = ((index + 1) / totalSlides) * 100 + '%';
+            
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) currentSlideIndex = 0;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = totalSlides - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') changeSlide(-1);
+            if (event.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
